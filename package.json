@@ -1,0 +1,20 @@
+{
+  "name": "garden-house-workstation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run build && cd .. && npx wrangler pages dev frontend/dist --d1 DB=garden-house-db --port 8788",
+    "dev:frontend": "cd frontend && npx vite --host",
+    "build": "cd frontend && npm run build",
+    "deploy": "npm run build && npx wrangler pages deploy frontend/dist",
+    "db:migrate": "npx wrangler d1 execute garden-house-db --file=migrations/0001_schema.sql",
+    "db:seed": "npx wrangler d1 execute garden-house-db --file=migrations/0002_seed.sql",
+    "db:migrate:local": "npx wrangler d1 execute garden-house-db --local --file=migrations/0001_schema.sql",
+    "db:seed:local": "npx wrangler d1 execute garden-house-db --local --file=migrations/0002_seed.sql",
+    "setup": "npm install && cd frontend && npm install",
+    "setup:db:local": "npm run db:migrate:local && npm run db:seed:local"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}
